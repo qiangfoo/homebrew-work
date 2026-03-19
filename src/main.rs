@@ -368,9 +368,7 @@ fn do_remove(repo_dir: Option<&PathBuf>) {
     }
 }
 
-fn do_init() {
-    print!(
-        r#"work() {{
+const SHELL_INIT: &str = r#"work() {
     local output
     output="$(command work "$@")"
     local ret=$?
@@ -381,13 +379,15 @@ fn do_init() {
 
     while IFS= read -r line; do
         if [[ "$line" == cd:* ]]; then
-            cd "${{line#cd:}}" || return 1
+            cd "${line#cd:}" || return 1
         else
             echo "$line"
         fi
     done <<< "$output"
-}}"#
-    );
+}"#;
+
+fn do_init() {
+    print!("{SHELL_INIT}");
 }
 
 fn do_goto(repo_dir: Option<&PathBuf>) {
