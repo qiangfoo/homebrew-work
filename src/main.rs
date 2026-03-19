@@ -301,7 +301,7 @@ fn select_worktree(prompt: &str, repo_dir: Option<&PathBuf>) -> Option<Worktree>
         .unwrap_or(0);
 
     let theme = ColorfulTheme {
-        active_item_style: console::Style::new().green(),
+        active_item_style: console::Style::new().green().force_styling(true),
         ..ColorfulTheme::default()
     };
 
