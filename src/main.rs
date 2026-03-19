@@ -324,6 +324,8 @@ fn do_remove(repo_dir: Option<&PathBuf>) {
         process::exit(1);
     }
 
+    let cwd = env::current_dir().ok();
+
     let spinner = ProgressBar::new_spinner();
     spinner.set_message("Removing worktree...");
     spinner.enable_steady_tick(std::time::Duration::from_millis(80));
@@ -362,7 +364,6 @@ fn do_remove(repo_dir: Option<&PathBuf>) {
 
     spinner.finish_and_clear();
 
-    let cwd = env::current_dir().ok();
     if cwd.as_deref().is_some_and(|c| c.starts_with(&worktree.path)) {
         emit_cd(&main_path);
     }
