@@ -1,7 +1,7 @@
 class Work < Formula
   desc "Interactive git worktree manager"
   homepage "https://github.com/qiangfoo/homebrew-tap"
-  version "0.2.1"
+  version "0.2.2"
   license "MIT"
 
   on_macos do

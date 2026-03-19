@@ -288,18 +288,24 @@ fn select_worktree(prompt: &str, repo_dir: Option<&PathBuf>) -> Option<Worktree>
             if w.branch.is_empty() {
                 dir_name
             } else {
-                format!("{dir_name} [{branch}]", branch = w.branch)
+                format!("{dir_name} \x1b[0m\x1b[2m[{}]\x1b[0m", w.branch)
             }
         })
         .collect();
 
     let cwd = env::current_dir().ok();
+
     let default_idx = cwd
         .as_ref()
         .and_then(|cwd| worktrees.iter().position(|w| w.path == *cwd))
         .unwrap_or(0);
 
-    let selection = Select::with_theme(&ColorfulTheme::default())
+    let theme = ColorfulTheme {
+        active_item_style: console::Style::new().green(),
+        ..ColorfulTheme::default()
+    };
+
+    let selection = Select::with_theme(&theme)
         .with_prompt(prompt)
         .items(&display)
         .default(default_idx)

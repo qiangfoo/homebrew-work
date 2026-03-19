@@ -1,6 +1,6 @@
 [package]
 name = "work"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 description = "Interactive git worktree manager"
 license = "MIT"
@@ -17,3 +17,4 @@ dirs = "6"
 serde = { version = "1", features = ["derive"] }
 shellexpand = "3"
 toml = "0.8"
+console = "0.15"
